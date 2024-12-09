@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # Load the dataset from GitHub
-url = 'https://github.com/GadeliaGoderdzi/PriceCalculator/blob/e0ba2603c33d8aa8eec569471d8a38321c643dec/OOGcalculatorexample.csv'
+url = 'OOGcalculatorexample.csv'
 df = pd.read_csv(url)
 
 # Streamlit App Title
@@ -28,9 +28,9 @@ if cargo_type and metric_ton > 0:
 
     # Display Result
     st.subheader(f"Calculation Result:")
-    st.write(f"**Cargo Type:** {Operation}")
+    st.write(f"**Cargo Type:** {cargo_type}")
     st.write(f"**Weight:** {metric_ton} metric tons")
-    st.write(f"**Rate per Metric Ton:** ${Rate}")
+    st.write(f"**Rate per Metric Ton:** ${rate}")
     st.write(f"**Total Cost:** ${total_cost:,.2f}")
 else:
     st.info("Please select a cargo type and enter a valid weight.")
