@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # Load the dataset from GitHub
-url = 'https://raw.githubusercontent.com/YOUR_GITHUB_USERNAME/YOUR_REPO_NAME/main/data.csv'
+url = 'OOGcalculatorexample.csv'
 df = pd.read_csv(url)
 
 # Streamlit App Title
