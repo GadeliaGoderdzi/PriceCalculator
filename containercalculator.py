@@ -1,3 +1,7 @@
+import streamlit as st
+import pandas as pd
+
+
 # Load the dataset from GitHub
 url = 'containersexample1.csv'
 df = pd.read_csv(url)
