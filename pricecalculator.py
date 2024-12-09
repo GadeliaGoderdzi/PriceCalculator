@@ -2,16 +2,16 @@ import streamlit as st
 import pandas as pd
 
 # Load the dataset from GitHub
-url = 'OOGcalculatorexample.csv'
+url = 'https://github.com/GadeliaGoderdzi/PriceCalculator/blob/e0ba2603c33d8aa8eec569471d8a38321c643dec/OOGcalculatorexample.csv'
 df = pd.read_csv(url)
 
 # Streamlit App Title
-st.title("Cargo Rate Calculator")
+st.title("OOG Cargo Rate Calculator")
 
 # Cargo Type Selection
 cargo_type = st.selectbox(
     "Select your cargo type:", 
-    df['cargo_type'].tolist()
+    df['Operation'].tolist()
 )
 
 # Metric Ton Input
@@ -23,14 +23,14 @@ metric_ton = st.number_input(
 
 # Calculate Total Rate
 if cargo_type and metric_ton > 0:
-    rate = df[df['cargo_type'] == cargo_type]['rate'].values[0]
+    rate = df[df['Operation'] == cargo_type]['Rate'].values[0]
     total_cost = rate * metric_ton
 
     # Display Result
     st.subheader(f"Calculation Result:")
-    st.write(f"**Cargo Type:** {cargo_type}")
+    st.write(f"**Cargo Type:** {Operation}")
     st.write(f"**Weight:** {metric_ton} metric tons")
-    st.write(f"**Rate per Metric Ton:** ${rate}")
+    st.write(f"**Rate per Metric Ton:** ${Rate}")
     st.write(f"**Total Cost:** ${total_cost:,.2f}")
 else:
     st.info("Please select a cargo type and enter a valid weight.")
