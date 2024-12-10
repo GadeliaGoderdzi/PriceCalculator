@@ -44,8 +44,17 @@ for index, row in data.iterrows():
         'Total Cost': cost
     })
 
+# Display the total results before the "Save my input" button
+if user_inputs:
+    st.write("### Summary of Your Inputs and Costs:")
+    results_df = pd.DataFrame(user_inputs)
+    st.write(results_df)
+
+    st.write(f"### Total Cost: ${total_cost}")
+
+
 # Button to save user input to a CSV file
-if st.button("Save my inputs"):
+if st.button("Show the estimated cost"):
     user_inputs_df = pd.DataFrame(user_inputs)
     # Save the data to a CSV file
     user_inputs_df.to_csv('user_inputs.csv', index=False)
