@@ -13,18 +13,18 @@ def load_data():
 def calculate_cost(rate, quantity):
     return rate * quantity
 
+
 # Load the dataset
 data = load_data()
 
-# Initialize an empty list to store user inputs
+# Initialize an empty list to store user inputs and results
 user_inputs = []
+total_cost = 0  # Variable to accumulate the total cost
 
 # Loop over each row in the CSV to ask the user how many they have
 for index, row in data.iterrows():
-    fee = row['Fee']
-    rate = row['Rate']
-    description = row['Fee']
-
+    description = row['Fee']  # Fee is now a description
+    rate = row['Rate']  # Rate is the actual rate
     # Ask the user how many containers they have
     quantity = st.number_input(f"How many {description} containers do you have?", min_value=0, step=1)
 
@@ -38,7 +38,6 @@ for index, row in data.iterrows():
     # Store the user input for later analysis
     user_inputs.append({
         'Description': description,
-        'Fee': fee,
         'Rate': rate,
         'Quantity': quantity,
         'Total Cost': cost
@@ -53,9 +52,14 @@ if user_inputs:
     results_df = pd.DataFrame(user_inputs)
     st.write(results_df)
 
+    # Display the total cost
     st.write(f"### Total Cost: ${total_cost}")
 
-
-
+# Button to save user input to a CSV file
+if st.button("Save my inputs"):
+    user_inputs_df = pd.DataFrame(user_inputs)
+    # Save the data to a CSV file
+    user_inputs_df.to_csv('user_inputs.csv', index=False)
+    st.write("Your inputs have been saved!")
 
 
