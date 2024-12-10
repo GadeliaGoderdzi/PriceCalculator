@@ -59,7 +59,7 @@ if user_inputs:
 if st.button("Save my inputs"):
     user_inputs_df = pd.DataFrame(user_inputs)
     # Save the data to a CSV file
-    user_inputs_df.to_csv('user_inputs.csv', index=False)
+    user_inputs_df.to_csv('CSV/user_inputs.csv', index=False)
     st.write("Your inputs have been saved!")
 
 
