@@ -44,6 +44,9 @@ for index, row in data.iterrows():
         'Total Cost': cost
     })
 
+    # Add this cost to the total
+    total_cost += cost
+
 # Display the total results before the "Save my input" button
 if user_inputs:
     st.write("### Summary of Your Inputs and Costs:")
