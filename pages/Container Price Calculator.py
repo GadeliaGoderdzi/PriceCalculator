@@ -56,10 +56,18 @@ if user_inputs:
     st.write(f"### Total Cost: ${total_cost}")
 
 # Button to save user input to a CSV file
+# Save to CSV and allow download
 if st.button("Save my inputs"):
     user_inputs_df = pd.DataFrame(user_inputs)
-    # Save the data to a CSV file
-    user_inputs_df.to_csv('CSV/user_inputs.csv', index=False)
-    st.write("Your inputs have been saved!")
+    
+    # Convert dataframe to CSV and create a download link
+    csv_data = user_inputs_df.to_csv(index=False)
+    st.download_button(
+        label="Download your input data",
+        data=csv_data,
+        file_name="user_inputs.csv",
+        mime="text/csv"
+    )
+    st.write("Your inputs are ready for download!")
 
 
