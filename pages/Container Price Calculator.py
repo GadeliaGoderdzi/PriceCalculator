@@ -1,4 +1,9 @@
 import streamlit as st
+import pandas as pd
 
-st.title("Container Price Calculator")
-st.write("This is a page where you will calculate your Container Prices.")
+
+# Load the CSV file
+@st.cache
+def load_data():
+    url = 'https://github.com/yourusername/yourrepo/raw/main/data.csv'  # Replace with your CSV file URL or local path
+    return pd.read_csv(url)
