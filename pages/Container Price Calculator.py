@@ -53,11 +53,6 @@ if user_inputs:
     st.write(f"### Total Cost: ${total_cost}")
 
 
-# Button to save user input to a CSV file
-if st.button("Show the estimated cost"):
-    user_inputs_df = pd.DataFrame(user_inputs)
-    # Save the data to a CSV file
-    user_inputs_df.to_csv('user_inputs.csv', index=False)
-    st.write("Your inputs have been saved!")
+
 
 
