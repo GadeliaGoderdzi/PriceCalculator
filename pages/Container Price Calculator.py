@@ -10,7 +10,7 @@ def load_data():
 
 
 # Function to calculate cost based on input
-def calculate_cost(fee, rate, quantity):
+def calculate_cost(rate, quantity):
     return rate * quantity
 
 # Load the dataset
