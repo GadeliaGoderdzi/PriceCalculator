@@ -17,34 +17,30 @@ def calculate_cost(rate, quantity):
 # Load the dataset
 data = load_data()
 
-# Initialize an empty list to store user inputs and results
-user_inputs = []
-total_cost = 0  # Variable to accumulate the total cost
+# Initialize variables
+total_quantity = 0  # To sum the quantities
+first_rate = data.iloc[0]['Rate']  # Get the rate from the first row
+user_inputs = []  # List to store user inputs
 
-# Loop over each row in the CSV to ask the user how many they have
-for index, row in data.iterrows():
-    description = row['Fee']  # Fee is now a description
-    rate = row['Rate']  # Rate is the actual rate
+# Loop over each row, skipping the first one
+for index, row in data.iloc[1:].iterrows():  # Skip the first row
+    description = row['Fee']  # Fee is the description
+    rate = row['Rate']  # Rate from each row (not used directly for calculation)
     # Ask the user how many containers they have
     quantity = st.number_input(f"How many {description} containers do you have?", min_value=0, step=1)
 
-    # Calculate cost if quantity is entered
-    if quantity > 0:
-        cost = calculate_cost(rate, quantity)
-        st.write(f"Total cost for {quantity} {description} containers: ${cost}")
-    else:
-        cost = 0
-    
+    # Add the input quantity to the total quantity
+    total_quantity += quantity
+
     # Store the user input for later analysis
     user_inputs.append({
         'Description': description,
         'Rate': rate,
-        'Quantity': quantity,
-        'Total Cost': cost
+        'Quantity': quantity
     })
 
-    # Add this cost to the total
-    total_cost += cost
+# Calculate the total cost by multiplying the total quantity with the first rate value
+total_cost = calculate_cost(first_rate, total_quantity)
 
 # Display the total results before the "Save my input" button
 if user_inputs:
@@ -69,5 +65,4 @@ if st.button("Save my inputs"):
         mime="text/csv"
     )
     st.write("Your inputs are ready for download!")
-
 
