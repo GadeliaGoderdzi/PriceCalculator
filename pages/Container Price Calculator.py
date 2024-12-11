@@ -80,14 +80,22 @@ if user_inputs:
 # Button to save user input to a CSV file
 # Save to CSV and allow download
 if st.button("Save my inputs"):
+    # Add the final total cost to the user inputs for the CSV download
+    user_inputs.append({
+        'Description': 'Final Total Cost',
+        'Rate': '',
+        'Quantity': '',
+        'Calculated Cost': final_total_cost
+    })
+    
     user_inputs_df = pd.DataFrame(user_inputs)
     
     # Convert dataframe to CSV and create a download link
     csv_data = user_inputs_df.to_csv(index=False)
     st.download_button(
-        label="Download your input data",
+        label="Download your input data with calculations",
         data=csv_data,
-        file_name="user_inputs.csv",
+        file_name="user_inputs_with_calculations.csv",
         mime="text/csv"
     )
-    st.write("Your inputs are ready for download!")
+    st.write("Your inputs with calculations are ready for download!")
