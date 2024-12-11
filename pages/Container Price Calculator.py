@@ -47,16 +47,22 @@ total_cost = calculate_cost(first_rate, total_quantity)
 if user_inputs:
     st.write("### Detailed Calculations:")
 
+    # Always show the total calculation for all containers and the first rate
+    st.write(f"Total containers: {total_quantity} x {first_rate} = ${total_cost}")
+
     # Create a DataFrame for the detailed calculations
     calculation_df = pd.DataFrame(user_inputs)
 
-    # Display each row with a formatted calculation
+    # Display each row with a formatted calculation, excluding rows where Quantity is 0
     for idx, row in calculation_df.iterrows():
         description = row['Description']
         quantity = row['Quantity']
         rate = row['Rate']
         calculated_cost = row['Calculated Cost']
-        st.write(f"For {description}: {quantity} x {rate} = ${calculated_cost}")
+
+        # Only show if quantity is greater than 0
+        if quantity > 0:
+            st.write(f"For {description}: {quantity} x {rate} = ${calculated_cost}")
 
     # Display the total cost
     st.write(f"### Total Cost (Total Quantity x Rate from first row): ${total_cost}")
