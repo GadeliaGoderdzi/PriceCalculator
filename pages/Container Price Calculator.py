@@ -21,63 +21,8 @@ data = load_data()
 total_quantity = 0  # To sum the quantities
 first_rate = data.iloc[0]['Rate']  # Get the rate from the first row
 user_inputs = []  # List to store user inputs
+non_zero_costs = 0  # To accumulate non-zero costs
 
 # Loop over each row, skipping the first one
 for index, row in data.iloc[1:].iterrows():  # Skip the first row
-    description = row['Fee']  # Fee is the description
-    rate = row['Rate']  # Rate from each row (not used directly for calculation)
-    # Ask the user how many containers they have
-    quantity = st.number_input(f"How many {description} containers do you have?", min_value=0, step=1)
-
-    # Add the input quantity to the total quantity
-    total_quantity += quantity
-
-    # Store the user input for later analysis
-    user_inputs.append({
-        'Description': description,
-        'Rate': rate,
-        'Quantity': quantity,
-        'Calculated Cost': calculate_cost(rate, quantity)
-    })
-
-# Calculate the total cost by multiplying the total quantity with the first rate value
-total_cost = calculate_cost(first_rate, total_quantity)
-
-# Display the detailed calculation before the "Save my input" button
-if user_inputs:
-    st.write("### Detailed Calculations:")
-
-    # Always show the total calculation for all containers and the first rate
-    st.write(f"Total containers: {total_quantity} x {first_rate} = ${total_cost}")
-
-    # Create a DataFrame for the detailed calculations
-    calculation_df = pd.DataFrame(user_inputs)
-
-    # Display each row with a formatted calculation, excluding rows where Quantity is 0
-    for idx, row in calculation_df.iterrows():
-        description = row['Description']
-        quantity = row['Quantity']
-        rate = row['Rate']
-        calculated_cost = row['Calculated Cost']
-
-        # Only show if quantity is greater than 0
-        if quantity > 0:
-            st.write(f"For {description}: {quantity} x {rate} = ${calculated_cost}")
-
-    # Display the total cost
-    st.write(f"### Total Cost (Total Quantity x Rate from first row): ${total_cost}")
-
-# Button to save user input to a CSV file
-# Save to CSV and allow download
-if st.button("Save my inputs"):
-    user_inputs_df = pd.DataFrame(user_inputs)
-    
-    # Convert dataframe to CSV and create a download link
-    csv_data = user_inputs_df.to_csv(index=False)
-    st.download_button(
-        label="Download your input data",
-        data=csv_data,
-        file_name="user_inputs.csv",
-        mime="text/csv"
-    )
-    st.write("Your inputs are ready for download!")
+    description = row['Fee']  # Fee is the des
