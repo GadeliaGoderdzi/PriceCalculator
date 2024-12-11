@@ -36,20 +36,30 @@ for index, row in data.iloc[1:].iterrows():  # Skip the first row
     user_inputs.append({
         'Description': description,
         'Rate': rate,
-        'Quantity': quantity
+        'Quantity': quantity,
+        'Calculated Cost': calculate_cost(rate, quantity)
     })
 
 # Calculate the total cost by multiplying the total quantity with the first rate value
 total_cost = calculate_cost(first_rate, total_quantity)
 
-# Display the total results before the "Save my input" button
+# Display the detailed calculation before the "Save my input" button
 if user_inputs:
-    st.write("### Summary of Your Inputs and Costs:")
-    results_df = pd.DataFrame(user_inputs)
-    st.write(results_df)
+    st.write("### Detailed Calculations:")
+
+    # Create a DataFrame for the detailed calculations
+    calculation_df = pd.DataFrame(user_inputs)
+
+    # Display each row with a formatted calculation
+    for idx, row in calculation_df.iterrows():
+        description = row['Description']
+        quantity = row['Quantity']
+        rate = row['Rate']
+        calculated_cost = row['Calculated Cost']
+        st.write(f"For {description}: {quantity} x {rate} = ${calculated_cost}")
 
     # Display the total cost
-    st.write(f"### Total Cost: ${total_cost}")
+    st.write(f"### Total Cost (Total Quantity x Rate from first row): ${total_cost}")
 
 # Button to save user input to a CSV file
 # Save to CSV and allow download
@@ -65,4 +75,3 @@ if st.button("Save my inputs"):
         mime="text/csv"
     )
     st.write("Your inputs are ready for download!")
-
